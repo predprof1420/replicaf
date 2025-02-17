@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html style="font-size: 16px;" lang="ru"><head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <title>Графики</title>
+    <link rel="stylesheet" href="../../static/nicepage.css" media="screen">
+<link rel="stylesheet" href="../../static/Графики.css" media="screen">
+    <script class="u-script" type="text/javascript" src="../../static/jquery.js" defer=""></script>
+    <script class="u-script" type="text/javascript" src="../../static/nicepage.js" defer=""></script>
+    <script>
+        window.setTimeout(function (){
+            window.location.href = "http://127.0.0.1:5000/get_all_data/?page=graphs";
+        },60000)
+    </script>
+    <meta name="generator" content="Nicepage 5.3.6, nicepage.com">
+    <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
+    
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <!-- график -->
+    <script type="text/javascript">
+      google.charts.load('current', {packages:['corechart']});
+      google.charts.load('current', {packages: ['table']});
+      google.charts.setOnLoadCallback(drawAverageChart);
+      google.charts.setOnLoadCallback(drawAverageTable);
+
+      google.charts.setOnLoadCallback(drawTempChart);
+      google.charts.setOnLoadCallback(drawTempTable);
+
+      google.charts.setOnLoadCallback(drawHumChart);
+      google.charts.setOnLoadCallback(drawHumTable);
+
+      google.charts.setOnLoadCallback(drawHBChart);
+      google.charts.setOnLoadCallback(drawHBTable);
+
+      function drawAverageChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Time / Время [сек]', 'Temperature / Температура [c]', 'Humidity / Влажность [%]'],
+            {% for i in average_data %}
+		        {{ i }},
+            {% endfor %}
+        ]);
+
+        var options = {
+          lineWidth: 7,
+          legend: { position: 'bottom' },
+          width: '80%',
+          height: 900,
+          vAxis: {
+            viewWindow:{
+              max:80,
+              min:15,
+            }
+          }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('average_curve_chart'));
+        chart.draw(data, options);
+      }
+
+      function drawAverageTable() {
+        var data = google.visualization.arrayToDataTable([
+            ['Time / Время [сек]', 'Temperature / Температура [c]', 'Humidity / Влажность [%]'],
+            {% for i in average_data %}
+		        {{ i }},
+            {% endfor %}
+        ]);
+        var options = {
+            width: '80%',
+            height: '900px',
+        };
+        var table = new google.visualization.Table(document.getElementById('average_table_div'));
+        table.draw(data, options);
+      }
+
+      function drawTempChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Time / Время [сек]', 'Датчик №1', 'Датчик №2', 'Датчик №3', 'Датчик №4'],
+            {% for i in temp_data %}
+		        {{ i }},
+            {% endfor %}
+        ]);
+
+        var options = {
+          lineWidth: 3,
+          legend: { position: 'bottom' },
+          width: '80%',
+          height: 900,
+          vAxis: {
+            viewWindow:{
+              max:36,
+              min:22,
+            }
+          }
+
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('temp_curve_chart'));
+        chart.draw(data, options);
+      }
+
+      function drawTempTable() {
+        var data = google.visualization.arrayToDataTable([
+            ['Time / Время [сек]', 'Датчик №1', 'Датчик №2', 'Датчик №3', 'Датчик №4'],
+            {% for i in temp_data %}
+		        {{ i }},
+            {% endfor %}
+        ]);
+        var options = {
+            width: '80%',
+            height: '900px',
+        };
+        var table = new google.visualization.Table(document.getElementById('temp_table_div'));
+        table.draw(data, options);
+      }
+
+      function drawHumChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Time / Время [сек]', 'Датчик №1', 'Датчик №2', 'Датчик №3', 'Датчик №4'],
+            {% for i in hum_data %}
+		        {{ i }},
+            {% endfor %}
+        ]);
+
+        var options = {
+          lineWidth: 3,
+          legend: { position: 'bottom' },
+          width: '80%',
+          height: 900,
+          vAxis: {
+            viewWindow:{
+              max:90,
+              min:30,
+            }
+          }
+
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('hum_curve_chart'));
+        chart.draw(data, options);
+      }
+
+      function drawHumTable() {
+        var data = google.visualization.arrayToDataTable([
+            ['Time / Время [сек]', 'Датчик №1', 'Датчик №2', 'Датчик №3', 'Датчик №4'],
+            {% for i in hum_data %}
+		        {{ i }},
+            {% endfor %}
+        ]);
+        var options = {
+            width: '80%',
+            height: '900px',
+        };
+        var table = new google.visualization.Table(document.getElementById('hum_table_div'));
+        table.draw(data, options);
+      }
+
+      function drawHBChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Time / Время [сек]', 'Датчик №1', 'Датчик №2', 'Датчик №3', 'Датчик №4', 'Датчик №5', 'Датчик №6'],
+            {% for i in hb_data %}
+		        {{ i }},
+            {% endfor %}
+        ]);
+
+        var options = {
+          lineWidth: 3,
+          legend: { position: 'bottom' },
+          width: '80%',
+          height: 900,
+          vAxis: {
+            viewWindow:{
+              max:80,
+              min:60,
+            }
+          }
+
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('hb_curve_chart'));
+        chart.draw(data, options);
+      }
+
+      function drawHBTable() {
+        var data = google.visualization.arrayToDataTable([
+            ['Time / Время [сек]', 'Датчик №1', 'Датчик №2', 'Датчик №3', 'Датчик №4', 'Датчик №5', 'Датчик №6'],
+            {% for i in hb_data %}
+		        {{ i }},
+            {% endfor %}
+        ]);
+        var options = {
+            width: '80%',
+            height: '900px',
+        };
+        var table = new google.visualization.Table(document.getElementById('hb_table_div'));
+        table.draw(data, options);
+      }
+    </script>
+
+    <script type="application/ld+json">{
+		"@context": "http://schema.org",
+		"@type": "Organization",
+		"name": ""
+}</script>
+    <meta name="theme-color" content="#478ac9">
+    <meta property="og:title" content="Графики">
+    <meta property="og:type" content="website">
+  </head>
+  <body class="u-body u-xl-mode" data-lang="ru"><header class="u-clearfix u-header u-header" id="sec-d1b4"><div class="u-clearfix u-sheet u-sheet-1">
+        <nav class="u-menu u-menu-dropdown u-offcanvas u-menu-1">
+          <div class="menu-collapse" style="font-size: 1rem; letter-spacing: 0px;">
+            <a class="u-button-style u-custom-left-right-menu-spacing u-custom-padding-bottom u-custom-text-active-color u-custom-text-hover-color u-custom-top-bottom-menu-spacing u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="#">
+              <svg class="u-svg-link" viewBox="0 0 24 24"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#menu-hamburger"></use></svg>
+              <svg class="u-svg-content" version="1.1" id="menu-hamburger" viewBox="0 0 16 16" x="0px" y="0px" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"><g><rect y="1" width="16" height="2"></rect><rect y="7" width="16" height="2"></rect><rect y="13" width="16" height="2"></rect>
+</g></svg>
+            </a>
+          </div>
+          <div class="u-nav-container">
+            <ul class="u-nav u-unstyled u-nav-1">
+<li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-custom-color-3 u-text-hover-custom-color-1" href="/index/" style="padding: 10px 20px;">Управление</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-custom-color-3 u-text-hover-custom-color-1" href="/graphs/" style="padding: 10px 20px;">Графики</a>
+</li>
+            {% if extreme_state %}
+                     <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-custom-color-3 u-text-hover-custom-color-1" href="/extreme_update?state=on&page=graphs/" style="padding: 10px 20px;">Экстренное управление - Включено</a>
+                     </li>
+                {% else %}
+                    <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-custom-color-3 u-text-hover-custom-color-1" href="/extreme_update?state=off&page=graphs/" style="padding: 10px 20px;">Экстренное управление - Выключено</a>
+                     </li>
+                {% endif %}</ul>
+          </div>
+          <div class="u-nav-container-collapse">
+            <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
+              <div class="u-inner-container-layout u-sidenav-overflow">
+                <div class="u-menu-close"></div>
+                <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2"><li class="u-nav-item"><a class="u-button-style u-nav-link" href="/index/">Управление</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="/graphs/">Графики</a>
+                    {% if extreme_state %}
+                     <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-custom-color-3 u-text-hover-custom-color-1" href="/extreme_update?state=on&page=graphs/" style="padding: 10px 20px;">Экстренное управление - Включено</a>
+                     </li>
+                {% else %}
+                    <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-custom-color-3 u-text-hover-custom-color-1" href="/extreme_update?state=off&page=graphs/" style="padding: 10px 20px;">Экстренное управление - Выключено</a>
+                     </li>
+                {% endif %}
+</li></ul>
+              </div>
+            </div>
+            <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
+          </div>
+        </nav>
+        <img class="u-image u-image-contain u-image-default u-preserve-proportions u-image-1" src="../../static/images/logo11.png" alt="" data-image-width="869" data-image-height="869">
+      </div></header>
+
+    <center>
+        <h4 class="u-align-center u-custom-font u-font-raleway u-text u-text-default-lg u-text-default-md u-text-default-xl u-text-1">Динамика средней температуры и влажности
+        </h4>
+
+        <div id="average_curve_chart" ></div>
+        <div id="average_table_div"></div>
+        <br><br>
+        <h4 class="u-align-center u-custom-font u-font-raleway u-text u-text-default-lg u-text-default-md u-text-default-xl u-text-1">Динамика данных датчиков температуры
+        </h4>
+
+        <div id="temp_curve_chart" ></div>
+        <div id="temp_table_div"></div>
+        <br><br>
+        <h4 class="u-align-center u-custom-font u-font-raleway u-text u-text-default-lg u-text-default-md u-text-default-xl u-text-1">Динамика данных датчиков влажности
+        </h4>
+
+        <div id="hum_curve_chart" ></div>
+        <div id="hum_table_div"></div>
+        <br><br>
+        <h4 class="u-align-center u-custom-font u-font-raleway u-text u-text-default-lg u-text-default-md u-text-default-xl u-text-1">Динамика данных датчиков влажности почвы
+        </h4>
+
+        <div id="hb_curve_chart" ></div>
+        <div id="hb_table_div"></div>
+    </center>
+
+    <section class="u-clearfix u-section-1" id="sec-c82d">
+        <div class="u-clearfix u-sheet u-sheet-1"></div>
+    </section>
+
+
+</body></html>
